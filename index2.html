@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whale Watching Tours in Massachusetts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(52, 152, 219, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(46, 204, 113, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #34495e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .logo::after {
+            content: '🐋';
+            font-size: 24px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .brand-sub {
+            font-size: 14px;
+            opacity: 0.8;
+            letter-spacing: 3px;
+            margin-top: -5px;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-left {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            font-weight: normal;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 50px;
+        }
+
+        .whale-animation {
+            position: absolute;
+            right: -200px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 800px;
+            height: 400px;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0yMDAgMzAwQzMwMCAyNTAgNTAwIDI1MCA2MDAgMzAwQzY1MCAzMjUgNjAwIDM1MCA1NTAgMzUwQzQ1MCAzNTAgMzUwIDM3NSAyNTAgMzc1QzE1MCAzNzUgMTAwIDM1MCAyMDAgMzAwWiIgZmlsbD0iIzJjM2U1MCIvPgo8cGF0aCBkPSJNNTUwIDI4MEM1NzAgMjcwIDU5MCAyNzUgNjAwIDI5MEM2MDUgMzAwIDU5NSAzMTAgNTgwIDMxMEM1NjAgMzEwIDU1MCAyOTUgNTUwIDI4MFoiIGZpbGw9IiMzNDQ5NWUiLz4KPHN2Zz4K') no-repeat center;
+            background-size: contain;
+            animation: whale-float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes whale-float {
+            0%, 100% { transform: translateY(-50%) rotate(-5deg); }
+            50% { transform: translateY(-60%) rotate(5deg); }
+        }
+
+        .tours-section {
+            background: linear-gradient(to bottom, #2c3e50, #34495e);
+            padding: 80px 40px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tour-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .tour-image {
+            height: 200px;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tour-image::after {
+            content: '🐋';
+            position: absolute;
+            font-size: 60px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: whale-breach 3s ease-in-out infinite;
+        }
+
+        @keyframes whale-breach {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            50% { transform: translate(-50%, -60%) scale(1.2); opacity: 1; }
+        }
+
+        .tour-content {
+            padding: 30px;
+        }
+
+        .tour-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .tour-description {
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .book-btn {
+            background: linear-gradient(45deg, #16a085, #27ae60);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+
+        .book-btn:hover {
+            background: linear-gradient(45deg, #27ae60, #16a085);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .destination-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .destination-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .destination-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .flag {
+            font-size: 24px;
+        }
+
+        .destination-header h3 {
+            font-size: 1.3rem;
+            margin: 0;
+            color: #fff;
+        }
+
+        .destination-info {
+            margin-bottom: 20px;
+        }
+
+        .destination-info p {
+            margin: 8px 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .destination-info strong {
+            color: #3498db;
+        }
+
+        .destination-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+
+        .destination-btn:hover:not(:disabled) {
+            background: linear-gradient(45deg, #c0392b, #e74c3c);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .destination-btn:disabled {
+            opacity: 0.6;
+        }
+
+        .faq-section {
+            background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+            padding: 80px 40px;
+            color: #2c3e50;
+        }
+
+        .faq-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .faq-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .faq-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3498db;
+            background: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #2980b9, #3498db);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: bubble-float 8s infinite ease-in-out;
+        }
+
+        .bubble:nth-child(1) { width: 20px; height: 20px; left: 10%; animation-delay: 0s; }
+        .bubble:nth-child(2) { width: 30px; height: 30px; left: 20%; animation-delay: 2s; }
+        .bubble:nth-child(3) { width: 15px; height: 15px; left: 80%; animation-delay: 4s; }
+        .bubble:nth-child(4) { width: 25px; height: 25px; left: 90%; animation-delay: 6s; }
+
+        @keyframes bubble-float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 15px 20px; }
+            .main-content { padding: 0 20px; }
+            .main-title { font-size: 2.5rem; }
+            .tours-section { padding: 60px 20px; }
+            .faq-section { padding: 60px 20px; }
+            .faq-container { 
+                grid-template-columns: 1fr; 
+                gap: 40px; 
+            }
+            .whale-animation { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <section class="hero">
+        <header class="header">
+            <div class="logo"></div>
+            <div>
+                <div class="brand">Whale</div>
+                <div class="brand-sub">WATCHING</div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="content-left">
+                <h1 class="main-title">Whale Watching Tours in Massachusetts</h1>
+                <p class="subtitle">Experience the thrill of seeing majestic whales up close on our guided tours.</p>
+            </div>
+            <div class="whale-animation"></div>
+        </div>
+    </section>
+
+    <section class="tours-section">
+        <h2 class="section-title">POPULAR TOURS</h2>
+        <div class="tours-grid">
+            <!--<div class="tour-card">
+                <div class="tour-image"></div>
+                <div class="tour-content">
+                    <h3 class="tour-title">Cape Cod Whale Watching Cruise</h3>
+                    <p class="tour-description">Join us for a memorable cruise off the coast of Cape Cod, home to a diverse variety of whales.</p>
+                    <button class="book-btn" onclick="bookTour('Cape Cod')">BOOK NOW</button>
+                </div>
+            </div>
+
+            <div class="tour-card">
+                <div class="tour-image"></div>
+                <div class="tour-content">
+                    <h3 class="tour-title">Boston Whale Watching Tour</h3>
+                    <p class="tour-description">Depart from Boston Harbor and witness the breathtaking sight of whales in their natural habitat.</p>
+                    <button class="book-btn" onclick="bookTour('Boston')">BOOK NOW</button>
+                </div>
+            </div>-->
+
+            <div class="tour-card">
+                <div class="tour-image"></div>
+                <div class="tour-content">
+                    <h3 class="tour-title">Gloucester Whale Watch</h3>
+                    <p class="tour-description">Explore the rich waters off Gloucester and catch a glimpse of humpback, finback, and minke whales.</p>
+                    <button class="book-btn" onclick="window.open('https://www.viator.com/tours/Gloucester/Whale-Watching-Tour-in-Gloucester/d24267-7975P1?pid=P00255542&mcid=42383&medium=link', '_blank')">BOOK NOW</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="worldwide-section">
+        <div style="background: linear-gradient(135deg, #1e3c72, #2a5298); padding: 80px 40px; color: white;">
+            <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 20px; letter-spacing: 2px; font-weight: bold;">WORLDWIDE WHALE WATCHING</h2>
+            <p style="text-align: center; font-size: 1.2rem; opacity: 0.9; margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">Discover the best whale watching destinations around the globe. From the Arctic waters of Norway to the tropical seas of Costa Rica.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto;">
+                
+                <!-- California -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇺🇸</span>
+                        <h3>California (Newport Beach)</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> Dec-Apr (Gray), Jun-Sep</p>
+                        <p><strong>Species:</strong> Gray, Humpback, Blue whales</p>
+                        <p><strong>Location:</strong> Monterey, San Diego</p>
+                    </div>
+                    <button class="destination-btn" onclick="window.open('https://www.viator.com/tours/Newport-Beach/Whale-Watching-Cruise-from-Newport-Beach/d26104-5481WHALE?pid=P00255542&mcid=42383&medium=link', '_blank')">BOOK NOW</button>
+                </div>
+
+                <!-- Alaska -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇺🇸</span>
+                        <h3>Alaska (Juneau)</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> May - September</p>
+                        <p><strong>Species:</strong> Humpback, Orcas</p>
+                        <p><strong>Location:</strong> Seward, Juneau, Ketchikan</p>
+                    </div>
+                    <button class="destination-btn" onclick="window.open('https://www.viator.com/tours/Juneau/Juneau-Wildlife-Whale-Watching-and-Mendenhall-Glacier/d941-74349P2?pid=P00255542&mcid=42383&medium=link', '_blank')">BOOK NOW</button>
+                </div>
+
+                <!-- Canada -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇨🇦</span>
+                        <h3>Canada (Vancouver)</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> May - October</p>
+                        <p><strong>Species:</strong> Orcas, Humpback whales</p>
+                        <p><strong>Location:</strong> Vancouver Island</p>
+                    </div>
+                    <button class="destination-btn" onclick="window.open('https://www.viator.com/tours/Vancouver/Half-Day-Whale-Watching-Adventure-from-Vancouver/d616-5882P9?pid=P00255542&mcid=42383&medium=link', '_blank')">BOOK NOW</button>
+                </div>
+
+                <!-- Iceland -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇮🇸</span>
+                        <h3>Iceland (Reykjavik)</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> May - September</p>
+                        <p><strong>Species:</strong> Humpback, Fin, Blue whales, Orcas</p>
+                        <p><strong>Location:</strong> Husavik, Reykjavik</p>
+                    </div>
+                    <button class="destination-btn" onclick="window.open('https://www.viator.com/tours/Reykjavik/Whale-Watching-Tour-from-Reykjavik-Old-Harbour/d905-7090P9?pid=P00255542&mcid=42383&medium=link', '_blank')">BOOK NOW</button>
+                </div>
+
+                <!-- Norway -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇳🇴</span>
+                        <h3>Norway (Tromsø)</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> October - January</p>
+                        <p><strong>Species:</strong> Orcas, Humpback whales</p>
+                        <p><strong>Location:</strong> Tromsø</p>
+                    </div>
+                    <button class="destination-btn" onclick="window.open('https://www.viator.com/tours/Tromso/All-inclusive-Whale-and-Seabird-Safari-by-Boat-to-Skervoy-from-Tromso/d4362-25455P7?pid=P00255542&mcid=42383&medium=link', '_blank')">BOOK NOW</button>
+                </div>
+
+                <!-- Mexico -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇲🇽</span>
+                        <h3>Mexico (Cabo San Lucas)</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> December - April</p>
+                        <p><strong>Species:</strong> Gray, Humpback, Blue whales</p>
+                        <p><strong>Location:</strong> Baja California, La Paz</p>
+                    </div>
+                    <button class="destination-btn" onclick="window.open('https://www.viator.com/tours/Cabo-San-Lucas/Whale-Watching-with-Photos-Included/d50859-154229P5?pid=P00255542&mcid=42383&medium=link', '_blank')">BOOK NOW</button>
+                </div>
+
+                <!-- Australia Auckland -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇦🇺</span>
+                        <h3>Australia (Auckland)</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> June - November</p>
+                        <p><strong>Species:</strong> Humpback, Southern Right whales</p>
+                        <p><strong>Location:</strong> Hervey Bay, Sydney, Albany</p>
+                    </div>
+                    <button class="destination-btn" onclick="window.open('https://www.viator.com/tours/Auckland/Auckland-Dolphin-and-Whale-Watching-Cruise/d391-6608AWDS?pid=P00255542&mcid=42383&medium=link', '_blank')">BOOK NOW</button>
+                </div>
+
+                <!-- Australia Jervis Bay -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇦🇺</span>
+                        <h3>Australia (Jervis Bay)</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> June - November</p>
+                        <p><strong>Species:</strong> Humpback, Southern Right whales</p>
+                        <p><strong>Location:</strong> Hervey Bay</p>
+                    </div>
+                    <button class="destination-btn" onclick="window.open('https://www.viator.com/tours/Jervis-Bay/Jervis-Bay-Whale-Watching-Cruise/d22045-9166P2', '_blank')">BOOK NOW</button>
+                </div>
+
+                <!-- New Zealand -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇳🇿</span>
+                        <h3>New Zealand (Kaikoura)</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> Year-round (Peak: Nov-Mar)</p>
+                        <p><strong>Species:</strong> Sperm, Humpback, Blue, Southern Right</p>
+                        <p><strong>Location:</strong> Kaikoura</p>
+                    </div>
+                    <button class="destination-btn" onclick="window.open('https://www.viator.com/tours/Kaikoura/Whale-Watching-in-Kaikoura-by-boat/d34937-66962P1?pid=P00255542&mcid=42383&medium=link', '_blank')">BOOK NOW</button>
+                </div>
+
+                <!-- South Africa -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇿🇦</span>
+                        <h3>South Africa (Hermanus)</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> July - November</p>
+                        <p><strong>Species:</strong> Southern Right whales</p>
+                        <p><strong>Location:</strong> Hermanus</p>
+                    </div>
+                    <button class="destination-btn" onclick="window.open('https://www.viator.com/tours/Hermanus/Boat-Based-Whale-Watching-from-Hermanus/d23347-8737P1', '_blank')">BOOK NOW</button>
+                </div>
+
+                <!-- Costa Rica -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇨🇷</span>
+                        <h3>Costa Rica</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> Jul-Nov, Dec-Apr</p>
+                        <p><strong>Species:</strong> Humpback whales (two populations)</p>
+                        <p><strong>Location:</strong> Pacific Coast</p>
+                    </div>
+                    <button class="destination-btn" style="background: linear-gradient(45deg, #95a5a6, #7f8c8d); cursor: not-allowed;" disabled>COMING SOON</button>
+                </div>
+
+                <!-- Brazil -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">🇧🇷</span>
+                        <h3>Brazil</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> July - October</p>
+                        <p><strong>Species:</strong> Humpback whales</p>
+                        <p><strong>Location:</strong> Praia do Forte, Abraão</p>
+                    </div>
+                    <button class="destination-btn" style="background: linear-gradient(45deg, #95a5a6, #7f8c8d); cursor: not-allowed;" disabled>COMING SOON</button>
+                </div>
+
+                <!-- Antarctica -->
+                <div class="destination-card">
+                    <div class="destination-header">
+                        <span class="flag">❄️</span>
+                        <h3>Antarctica</h3>
+                    </div>
+                    <div class="destination-info">
+                        <p><strong>Season:</strong> November - March</p>
+                        <p><strong>Species:</strong> Humpback, Blue, Fin, Minke whales</p>
+                        <p><strong>Location:</strong> Cruises from Ushuaia & NZ</p>
+                    </div>
+                    <button class="destination-btn" style="background: linear-gradient(45deg, #95a5a6, #7f8c8d); cursor: not-allowed;" disabled>COMING SOON</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="faq-container">
+            <div class="faq-content">
+                <h2>FREQUENTLY ASKED QUESTIONS</h2>
+                <p class="faq-text">Contact us for more information or to subscribe for tour updates.</p>
+                
+                <div style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 15px; color: #2c3e50;">What should I bring?</h3>
+                    <p style="margin-bottom: 25px; line-height: 1.6;">We recommend bringing sunscreen, a camera, warm clothing, and comfortable shoes with good grip.</p>
+                    
+                    <h3 style="margin-bottom: 15px; color: #2c3e50;">What's the best time to see whales?</h3>
+                    <p style="margin-bottom: 25px; line-height: 1.6;">Whale watching season in Massachusetts runs from April through October, with peak activity in summer months.</p>
+                    
+                    <h3 style="margin-bottom: 15px; color: #2c3e50;">How long are the tours?</h3>
+                    <p style="line-height: 1.6;">Our tours typically last 3-4 hours, giving you plenty of time to spot and observe these magnificent creatures.</p>
+                </div>
+            </div>
+
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-input" placeholder="Message (optional)" rows="4"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Subscribe for Updates</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        function bookTour(location) {
+            alert(`Thank you for your interest in the ${location} Whale Watching Tour! We'll redirect you to our booking system.`);
+            // Here you would typically redirect to a booking page
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for subscribing! We\'ll keep you updated on our latest tours and whale sightings.');
+            event.target.reset();
+        }
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for any internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Add parallax effect to whale animation
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const whale = document.querySelector('.whale-animation');
+                if (whale) {
+                    whale.style.transform = `translateY(${-50 + scrolled * 0.1}%) rotate(${-5 + scrolled * 0.01}deg)`;
+                }
+            });
+
+            // Add hover effects to tour cards
+            const tourCards = document.querySelectorAll('.tour-card');
+            tourCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.background = 'rgba(255, 255, 255, 0.15)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.background = 'rgba(255, 255, 255, 0.1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
